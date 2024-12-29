@@ -4,46 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard App</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h2>Dashboard</h2>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <span>Contacts: <span id="contacts-count">0</span></span>
+                <h1>Dashboard App</h1>
+                <div class="dashboard-stats">
+                    <div class="stat">
+                        <h2 id="contacts-count">0</h2>
+                        <p>Contacts</p>
                     </div>
-                    <div class="col-md-3">
-                        <span>PAW: <span id="paw-count">0</span></span>
+                    <div class="stat">
+                        <h2 id="paw-count">0</h2>
+                        <p>PAW</p>
                     </div>
-                    <div class="col-md-3">
-                        <span>Drinking: <span id="drinking-count">0</span></span>
+                    <div class="stat">
+                        <h2 id="drinking-count">0</h2>
+                        <p>Drinking</p>
                     </div>
-                    <div class="col-md-3">
-                        <span>Run: <span id="run-count">0</span></span>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <button class="btn btn-primary w-100" id="contacts-btn">Contacts</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-primary w-100" id="paw-btn">PAW</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-primary w-100" id="drinking-btn">Drinking</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-primary w-100" id="run-btn">Run</button>
+                    <div class="stat">
+                        <h2 id="run-count">0</h2>
+                        <p>Run</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button class="btn btn-danger" id="reset-btn">Reset</button>
-                        <ul id="log-list" class="list-group mt-3"></ul>
-                    </div>
+                <button class="btn btn-primary" id="contacts-btn">Contacts</button>
+                <button class="btn btn-primary" id="paw-btn">PAW</button>
+                <button class="btn btn-primary" id="drinking-btn">Drinking</button>
+                <button class="btn btn-primary" id="run-btn">Run</button>
+                <div class="log-container">
+                    <h2>Log:</h2>
+                    <ul id="log-list"></ul>
                 </div>
             </div>
         </div>
