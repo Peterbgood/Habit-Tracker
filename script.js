@@ -3,117 +3,60 @@ let pawCount = 0;
 let drinkingCount = 0;
 let runCount = 0;
 
-// Get data from local storage
-if (localStorage.getItem('contactsCount')) {
-  contactsCount = parseInt(localStorage.getItem('contactsCount'));
-}
-if (localStorage.getItem('pawCount')) {
-  pawCount = parseInt(localStorage.getItem('pawCount'));
-}
-if (localStorage.getItem('drinkingCount')) {
-  drinkingCount = parseInt(localStorage.getItem('drinkingCount'));
-}
-if (localStorage.getItem('runCount')) {
-  runCount = parseInt(localStorage.getItem('runCount'));
-}
+const logList = document.getElementById('log-list');
+const contactsBtn = document.getElementById('contacts-btn');
+const pawBtn = document.getElementById('paw-btn');
+const drinkingBtn = document.getElementById('drinking-btn');
+const runBtn = document.getElementById('run-btn');
 
-// Get log from local storage
-let log = [];
-if (localStorage.getItem('log')) {
-  log = JSON.parse(localStorage.getItem('log'));
-}
+const contactsCountElement = document.getElementById('contacts-count');
+const pawCountElement = document.getElementById('paw-count');
+const drinkingCountElement = document.getElementById('drinking-count');
+const runCountElement = document.getElementById('run-count');
 
-// Update counts display
-document.getElementById('counts').innerHTML = `
-  <span>Contacts: ${contactsCount}</span>
-  <span>PAW: ${pawCount}</span>
-  <span>Drinking: ${drinkingCount}</span>
-  <span>Run: ${runCount}</span>
-`;
-
-// Add event listeners to buttons
-document.getElementById('contacts-btn').addEventListener('click', () => {
-  addLog('Contacts');
-  contactsCount++;
-  localStorage.setItem('contactsCount', contactsCount);
-  updateCountsDisplay();
+contactsBtn.addEventListener('click', () => {
+    logEvent('Contacts');
+    updateCount('contacts');
 });
 
-document.getElementById('paw-btn').addEventListener('click', () => {
-  addLog('PAW');
-  pawCount++;
-  localStorage.setItem('pawCount', pawCount);
-  updateCountsDisplay();
+pawBtn.addEventListener('click', () => {
+    logEvent('PAW');
+    updateCount('paw');
 });
 
-document.getElementById('drinking-btn').addEventListener('click', () => {
-  addLog('Drinking');
-  drinkingCount++;
-  localStorage.setItem('drinkingCount', drinkingCount);
-  updateCountsDisplay();
+drinkingBtn.addEventListener('click', () => {
+    logEvent('Drinking');
+    updateCount('drinking');
 });
 
-document.getElementById('run-btn').addEventListener('click', () => {
-  addLog('Run');
-  runCount++;
-  localStorage.setItem('runCount', runCount);
-  updateCountsDisplay();
+runBtn.addEventListener('click', () => {
+    logEvent('Run');
+    updateCount('run');
 });
 
-document.getElementById('reset-btn').addEventListener('click', () => {
-  reset();
-});
-
-// Update counts display
-function updateCountsDisplay() {
-  document.getElementById('counts').innerHTML = `
-    <span>Contacts: ${contactsCount}</span>
-    <span>PAW: ${pawCount}</span>
-    <span>Drinking: ${drinkingCount}</span>
-    <span>Run: ${runCount}</span>
-  `;
+function logEvent(event) {
+    const logItem = document.createElement('li');
+    logItem.textContent = `${new Date().toLocaleString()}: ${event}`;
+    logList.appendChild(logItem);
 }
 
-// Add log entry
-function addLog(activity) {
-  const date = new Date();
-  const logEntry = {
-    activity,
-    date: date.toLocaleString()
-  };
-  log.push(logEntry);
-  localStorage.setItem('log', JSON.stringify(log));
-  updateLogDisplay();
-}
-
-// Update log display
-function updateLogDisplay() {
-  const logHtml = log.map((entry, index) => {
-    return `
-      <div>
-        <span>${entry.activity} - ${entry.date}</span>
-        <button class="btn btn-danger" onclick="deleteLogEntry(${index})">Delete</button>
-      </div>
-    `;
-  }).join('');
-  document.getElementById('log').innerHTML = logHtml;
-}
-
-// Delete log entry
-function deleteLogEntry(index) {
-  log.splice(index, 1);
-  localStorage.setItem('log', JSON.stringify(log));
-  updateLogDisplay();
-}
-
-// Reset
-function reset() {
-  contactsCount = 0;
-  pawCount = 0;
-  drinkingCount = 0;
-  runCount = 0;
-  log = [];
-  localStorage.clear();
-  updateCountsDisplay();
-  updateLogDisplay();
+function updateCount(event) {
+    switch (event) {
+        case 'contacts':
+            contactsCount++;
+            contactsCountElement.textContent = contactsCount;
+            break;
+        case 'paw':
+            pawCount++;
+            pawCountElement.textContent = pawCount;
+            break;
+        case 'drinking':
+            drinkingCount++;
+            drinkingCountElement.textContent = drinkingCount;
+            break;
+        case 'run':
+            runCount++;
+            runCountElement.textContent = runCount;
+            break;
+    }
 }
