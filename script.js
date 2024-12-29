@@ -1,5 +1,3 @@
-let contactsCount = localStorage.getItem('contactsCount') || 0;
-let pawCount = localStorage.getItem('pawCount') || 0;
 let log = JSON.parse(localStorage.getItem('log')) || [];
 
 const logList = document.getElementById('log-list');
@@ -9,6 +7,10 @@ const resetBtn = document.getElementById('reset-btn');
 
 const contactsCountElement = document.getElementById('contacts-count');
 const pawCountElement = document.getElementById('paw-count');
+
+// Retrieve count from log
+let contactsCount = log.filter((item) => item.event === 'Contacts').length;
+let pawCount = log.filter((item) => item.event === 'Action').length;
 
 contactsCountElement.textContent = contactsCount;
 pawCountElement.textContent = pawCount;
@@ -25,29 +27,26 @@ log.forEach((item) => {
     const deleteBtn = logItem.querySelector('.delete-btn');
     deleteBtn.addEventListener('click', () => {
         logItem.remove();
-        log = log.filter((i) => i.date !== item.date && i.event !== item.event);
+        log = log.filter((i) => i !== item);
         localStorage.setItem('log', JSON.stringify(log));
-        decrementCount(item.event);
+        updateCount();
     });
 });
 
 contactsBtn.addEventListener('click', () => {
     logEvent('Contacts');
-    updateCount('contacts');
+    updateCount();
 });
 
 pawBtn.addEventListener('click', () => {
     logEvent('Action');
-    updateCount('paw');
+    updateCount();
 });
 
 resetBtn.addEventListener('click', () => {
     localStorage.clear();
     logList.innerHTML = '';
-    contactsCount = 0;
-    pawCount = 0;
-    contactsCountElement.textContent = contactsCount;
-    pawCountElement.textContent = pawCount;
+    updateCount();
 });
 
 function logEvent(event) {
@@ -67,38 +66,15 @@ function logEvent(event) {
     const deleteBtn = li.querySelector('.delete-btn');
     deleteBtn.addEventListener('click', () => {
         li.remove();
-        log = log.filter((i) => i.date !== logItem.date && i.event !== logItem.event);
+        log = log.filter((i) => i !== logItem);
         localStorage.setItem('log', JSON.stringify(log));
-        decrementCount(logItem.event);
+        updateCount();
     });
 }
 
-function updateCount(event) {
-    switch (event) {
-        case 'contacts':
-            contactsCount++;
-            contactsCountElement.textContent = contactsCount;
-            localStorage.setItem('contactsCount', contactsCount);
-            break;
-        case 'paw':
-            pawCount++;
-            pawCountElement.textContent = pawCount;
-            localStorage.setItem('pawCount', pawCount);
-            break;
-    }
-}
-
-function decrementCount(event) {
-    switch (event) {
-        case 'contacts':
-            contactsCount--;
-            contactsCountElement.textContent = contactsCount;
-            localStorage.setItem('contactsCount', contactsCount);
-            break;
-        case 'paw':
-            pawCount--;
-            pawCountElement.textContent = pawCount;
-            localStorage.setItem('pawCount', pawCount);
-            break;
-    }
+function updateCount() {
+    contactsCount = log.filter((item) => item.event === 'Contacts').length;
+    pawCount = log.filter((item) => item.event === 'Action').length;
+    contactsCountElement.textContent = contactsCount;
+    pawCountElement.textContent = pawCount;
 }
