@@ -45,7 +45,10 @@ pawBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
     localStorage.clear();
+    log = [];
     logList.innerHTML = '';
+    contactsCount = 0;
+    pawCount = 0;
     updateCount();
 });
 
