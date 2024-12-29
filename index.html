@@ -10,35 +10,27 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1>Dashboard App</h1>
-                <div class="dashboard-stats">
-                    <div class="stat">
+                <h1>Tracker</h1>
+                <div class="dashboard-stats row">
+                    <div class="stat col">
                         <h2 id="contacts-count">0</h2>
-                        <p>Contacts</p>
+                        <p>Contact Count</p>
                     </div>
-                    <div class="stat">
+                    <div class="stat col">
                         <h2 id="paw-count">0</h2>
-                        <p>PAW</p>
-                    </div>
-                    <div class="stat">
-                        <h2 id="drinking-count">0</h2>
-                        <p>Drinking</p>
-                    </div>
-                    <div class="stat">
-                        <h2 id="run-count">0</h2>
-                        <p>Run</p>
+                        <p>Action Count</p>
                     </div>
                 </div>
                 <button class="btn btn-primary" id="contacts-btn">Contacts</button>
-                <button class="btn btn-primary" id="paw-btn">PAW</button>
-                <button class="btn btn-primary" id="drinking-btn">Drinking</button>
-                <button class="btn btn-primary" id="run-btn">Run</button>
+                <button class="btn btn-primary" id="paw-btn">Action</button>
+                
                 <div class="log-container">
                     <h2>Log:</h2>
                     <ul id="log-list"></ul>
                 </div>
             </div>
         </div>
+        <button class="btn btn-danger" id="reset-btn">Reset</button>
     </div>
 
     <script src="script.js"></script>
